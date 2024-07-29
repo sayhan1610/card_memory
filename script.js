@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gameBoard = document.getElementById('gameBoard');
     const startGameButton = document.getElementById('startGame');
-    const difficultySelect = document.getElementById('difficulty');
-    const emojis = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣'];
+    const difficultyRadioButtons = document.querySelectorAll('.radio-input .input');
+    const emojis = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🥰', '😍', '🤩', '😘', '😗'];
     let firstCard = null;
     let secondCard = null;
     let lockBoard = false;
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         secondCard = null;
         lockBoard = false;
 
-        const difficulty = difficultySelect.value;
+        const difficulty = getSelectedDifficulty();
         const gridSize = getGridSize(difficulty);
         const cardCount = gridSize * gridSize;
         let cardsArray = generateCardsArray(cardCount);
@@ -27,6 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
         cardsArray.forEach(emoji => {
             const card = document.createElement('div');
             card.classList.add('card');
+            const cardInner = document.createElement('div');
+            cardInner.classList.add('card-inner');
+            const cardFront = document.createElement('div');
+            cardFront.classList.add('card-front');
+            const cardBack = document.createElement('div');
+            cardBack.classList.add('card-back');
+            cardBack.textContent = emoji;
+
+            cardInner.appendChild(cardFront);
+            cardInner.appendChild(cardBack);
+            card.appendChild(cardInner);
+
             card.dataset.emoji = emoji;
             gameBoard.appendChild(card);
         });
@@ -37,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Apply difficulty-specific classes
         gameBoard.className = `game-board ${difficulty}`;
+    }
+
+    function getSelectedDifficulty() {
+        const selectedRadioButton = document.querySelector('.radio-input .input:checked');
+        return selectedRadioButton ? selectedRadioButton.value : 'easy';
     }
 
     function generateCardsArray(cardCount) {
@@ -68,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (this === firstCard) return;
 
         this.classList.add('flip');
-        this.textContent = this.dataset.emoji;
 
         if (!firstCard) {
             firstCard = this;
@@ -98,8 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             firstCard.classList.remove('flip');
             secondCard.classList.remove('flip');
-            firstCard.textContent = '';
-            secondCard.textContent = '';
 
             resetBoard();
         }, 1500);
