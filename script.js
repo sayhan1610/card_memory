@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('div');
         card.classList.add('card');
         card.dataset.emoji = emoji;
-        card.addEventListener('click', flipCard);
         gameBoard.appendChild(card);
     });
 
@@ -63,4 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function resetBoard() {
         [firstCard, secondCard, lockBoard] = [null, null, false];
     }
+
+    // Attach event listeners after the cards are created
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => card.addEventListener('click', flipCard));
 });
