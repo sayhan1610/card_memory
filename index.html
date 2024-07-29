@@ -8,6 +8,15 @@
   </head>
   <body>
     <h1>Flip Card Memory Game</h1>
+    <div class="level-selection">
+      <label for="difficulty">Select Difficulty: </label>
+      <select id="difficulty">
+        <option value="easy">Easy (4x4)</option>
+        <option value="medium">Medium (8x8)</option>
+        <option value="hard">Hard (32x32)</option>
+      </select>
+      <button id="startGame">Start Game</button>
+    </div>
     <div class="game-board" id="gameBoard"></div>
     <script src="script.js"></script>
   </body>
