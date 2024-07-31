@@ -7,30 +7,38 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="background">
-    <h1>Flip Card Memory Game</h1>
-    <div class="level-selection">
-      <label for="difficulty">Select Difficulty: </label>
-      <div class="radio-input" id="difficulty">
-        <input
-          checked
-          class="input green"
-          type="radio"
-          name="radio"
-          value="easy"
-        />
-        <input class="input yellow" type="radio" name="radio" value="medium" />
-        <input class="input red" type="radio" name="radio" value="hard" />
+    <div class="container">
+      <h1>Flip Card Memory Game</h1>
+      <div class="level-selection">
+        <label for="difficulty">Select Difficulty: </label>
+        <div class="radio-input" id="difficulty">
+          <input
+            checked
+            class="input green"
+            type="radio"
+            name="radio"
+            value="easy"
+          />
+          <input
+            class="input yellow"
+            type="radio"
+            name="radio"
+            value="medium"
+          />
+          <input class="input red" type="radio" name="radio" value="hard" />
+        </div>
+        <button class="btn-23" id="startGame">
+          <span class="text">Start <br />Game</span>
+          <span aria-hidden="" class="marquee">Start</span>
+          <span aria-hidden="" class="marquee">Game</span>
+        </button>
       </div>
-      <button class="btn-23" id="startGame">
-        <span class="text"
-          >Start <br />
-          Game</span
-        >
-        <span aria-hidden="" class="marquee">Start</span>
-        <span aria-hidden="" class="marquee">Game</span>
-      </button>
+      <div id="movesCounter">Moves: 0</div>
+      <div class="game-board" id="gameBoard"></div>
     </div>
-    <div class="game-board" id="gameBoard"></div>
+    <audio id="swipeSound" src="audio/swipe.mp3"></audio>
+    <audio id="winSound" src="audio/win.mp3"></audio>
+    <audio id="playSound" src="audio/play.mp3"></audio>
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 body {
+  scale: 0.8;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -9,13 +9,33 @@ body {
   margin: 0;
 }
 
+.container {
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
 h1 {
   margin-bottom: 20px;
+}
+
+.level-selection {
+  margin-bottom: 20px;
+}
+
+.radio-input {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .game-board {
   display: grid;
   grid-gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .card {
@@ -205,80 +225,63 @@ h1 {
 
 .input {
   -webkit-appearance: none;
-  /* remove default */
+
   margin: 6px;
   width: 24px;
   height: 24px;
   border-radius: 12px;
   cursor: pointer;
   vertical-align: middle;
-  box-shadow: hsla(0, 0%, 100%, 0.15) 0 1px 1px,
-    inset hsla(0, 0%, 0%, 0.5) 0 0 0 1px;
-  background-color: hsla(0, 0%, 0%, 0.2);
+  background-color: hsla(0, 0%, 90%, 1);
   background-repeat: no-repeat;
-  -webkit-transition: background-position 0.15s cubic-bezier(0.8, 0, 1, 1),
-    -webkit-transform 0.25s cubic-bezier(0.8, 0, 1, 1);
-  outline: none;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .input.green {
-  background-image: -webkit-radial-gradient(
-    hsla(118, 100%, 90%, 1) 0%,
-    hsla(118, 100%, 70%, 1) 15%,
-    hsla(118, 100%, 60%, 0.3) 28%,
-    hsla(118, 100%, 30%, 0) 70%
-  );
+  background-color: hsla(118, 100%, 90%, 1);
 }
 
 .input.yellow {
-  background-image: -webkit-radial-gradient(
-    hsla(50, 100%, 90%, 1) 0%,
-    hsla(50, 100%, 70%, 1) 15%,
-    hsla(50, 100%, 60%, 0.3) 28%,
-    hsla(50, 100%, 30%, 0) 70%
-  );
+  background-color: hsla(50, 100%, 90%, 1);
 }
 
 .input.red {
-  background-image: -webkit-radial-gradient(
-    hsla(0, 100%, 90%, 1) 0%,
-    hsla(0, 100%, 70%, 1) 15%,
-    hsla(0, 100%, 60%, 0.3) 28%,
-    hsla(0, 100%, 30%, 0) 70%
-  );
+  background-color: hsla(0, 100%, 90%, 1);
 }
 
 .input:checked {
-  -webkit-transition: background-position 0.2s 0.15s cubic-bezier(0, 0, 0.2, 1),
-    -webkit-transform 0.25s cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.input:active {
-  -webkit-transform: scale(1.5);
-  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);
+.input:checked.green {
+  background-color: hsla(118, 100%, 70%, 1);
 }
 
-/* The up/down direction logic */
-
-.input,
-.input:active {
-  background-position: 24px 0;
+.input:checked.yellow {
+  background-color: hsla(50, 100%, 70%, 1);
 }
 
-.input:checked {
-  background-position: 0 0;
-}
-
-.input:checked ~ .input,
-.input:checked ~ .input:active {
-  background-position: -24px 0;
+.input:checked.red {
+  background-color: hsla(0, 100%, 70%, 1);
 }
 
 .background {
-  /* Add your background pattern here */
-  background-color: #e5e5f7;
-  background-image: radial-gradient(#fbdc34 10%, transparent 10%),
-    radial-gradient(#fbdc34 10%, transparent 10%);
+  background-color: #ccccff;
+  background-image: radial-gradient(#ffd15c 10%, transparent 10%),
+    radial-gradient(#fa9d37 10%, transparent 10%);
   background-size: 100px 100px;
   background-position: 0 0, 50px 50px;
+  animation: backgroundmove 2s infinite linear;
+}
+
+@keyframes backgroundmove {
+  0% {
+    background-position: 0 0, 50px 50px;
+  }
+  50% {
+    background-position: 50px 50px, 0 0;
+  }
+  100% {
+    background-position: 0 0, 50px 50px;
+  }
 }

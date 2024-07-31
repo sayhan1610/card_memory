@@ -2,6 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameBoard = document.getElementById('gameBoard');
     const startGameButton = document.getElementById('startGame');
     const difficultyRadioButtons = document.querySelectorAll('.radio-input .input');
+    const movesCounter = document.getElementById('movesCounter');
+    const swipeSound = document.getElementById('swipeSound');
+    const winSound = document.getElementById('winSound');
+    const playSound = document.getElementById('playSound');
+    
     const emojis = [
         '😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🥰', '😍', '🤩', '😘', '😗', '😚',
         '😙', '😋', '😛', '😝', '😜', '🤪', '🤨', '🧐', '🤓', '😎', '🥳', '😏', '😒', '😞', '😔', '😟',
@@ -14,14 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let firstCard = null;
     let secondCard = null;
     let lockBoard = false;
-
+    let moves = 0;
+    let matchedPairs = 0;
+    
     startGameButton.addEventListener('click', startGame);
+    startGameButton.addEventListener('click', () => playSound.play());
 
     function startGame() {
         gameBoard.innerHTML = '';
         firstCard = null;
         secondCard = null;
         lockBoard = false;
+        moves = 0;
+        matchedPairs = 0;
+        updateMovesCounter();
 
         const difficulty = getSelectedDifficulty();
         const gridSize = getGridSize(difficulty);
@@ -93,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (this === firstCard) return;
 
         this.classList.add('flip');
+        swipeSound.play();
 
         if (!firstCard) {
             firstCard = this;
@@ -101,6 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         secondCard = this;
         lockBoard = true;
+        moves++;
+        updateMovesCounter();
 
         checkForMatch();
     }
@@ -114,6 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function disableCards() {
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
+        matchedPairs++;
+        
+        if (matchedPairs === emojis.length / 2) {
+            winSound.play();
+            console.log('All pairs matched! Playing win sound.');
+        }
 
         resetBoard();
     }
@@ -129,5 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function resetBoard() {
         [firstCard, secondCard, lockBoard] = [null, null, false];
+    }
+
+    function updateMovesCounter() {
+        movesCounter.textContent = `Moves: ${moves}`;
     }
 });
